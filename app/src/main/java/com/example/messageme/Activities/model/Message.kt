@@ -1,4 +1,4 @@
-package com.example.messageme.Activities.DataClass
+package com.example.messageme.Activities.model
 
 class Message {
      var message : String? = null
@@ -10,4 +10,8 @@ class Message {
         this.message= message
         this.senderId= senderId
     }
+
+
+
+
 }

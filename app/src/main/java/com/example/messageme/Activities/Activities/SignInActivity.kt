@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.messageme.Activities.MainActivity
-import com.example.messageme.R
 import com.example.messageme.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -33,7 +31,7 @@ class SignInActivity : AppCompatActivity() {
 
                     if (it.isSuccessful){
 
-                        val intent = Intent(this@SignInActivity, LatestMessagesActivity::class.java)
+                        val intent = Intent(this@SignInActivity, UsersActivity::class.java)
 
 
                         intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -58,9 +56,8 @@ class SignInActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-
         if (FirebaseAuth.getInstance().currentUser!=null){
-            startActivity(Intent(this@SignInActivity,LatestMessagesActivity::class.java))
+            startActivity(Intent(this@SignInActivity,UsersActivity::class.java))
             finish()
         }
 

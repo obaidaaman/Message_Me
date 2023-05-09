@@ -7,26 +7,36 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.messageme.Activities.DataClass.Message
+import com.example.messageme.Activities.model.Message
 import com.example.messageme.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
-class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) : RecyclerView.Adapter<ViewHolder>() {
 
-    val ITEM_RECEIVE = 1
-    val ITEM_SENT = 2
 
+class MessageAdapter(var context: Context, var messageList: ArrayList<Message>) : RecyclerView.Adapter<ViewHolder>() {
+
+    val firebaseDatabase : FirebaseDatabase? = null
+
+    val ITEM_RECEIVE = 2
+    val ITEM_SENT = 1
+    var senderRoom : String? = null
+    var ReceiverRoom : String? = null
+    fun setRooms(senderRoom: String?, receiverRoom: String?) {
+        this.senderRoom = senderRoom
+        this.ReceiverRoom = receiverRoom
+    }
     class SentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-  val sentMessage = itemView.findViewById<TextView>(R.id.txt_sent)
+  val sentMessage: TextView = itemView.findViewById(R.id.txt_sent)
     }
 
     class ReceiveViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val ReceiveMessage = itemView.findViewById<TextView>(R.id.txt_receive)
+        val ReceiveMessage: TextView = itemView.findViewById(R.id.txt_receive)
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-if (viewType == 1){
+if (viewType == ITEM_RECEIVE){
     // inflate receive
 
     val itemView = LayoutInflater.from(context).inflate(R.layout.received,parent,false)
@@ -52,20 +62,19 @@ if (viewType == 1){
 
        val viewHolder = holder as SentViewHolder
 
-       holder.sentMessage.text= currentMessage.message
+       viewHolder.sentMessage.text= currentMessage.message
 
 
    }else{
        val viewHolder = holder as ReceiveViewHolder
 
-       holder.ReceiveMessage.text= currentMessage.message
+       viewHolder.ReceiveMessage.text= currentMessage.message
    }
-
 
     }
 
     override fun getItemViewType(position: Int): Int {
-        val currentMessage = messageList[position]
+        val currentMessage : Message = messageList[position]
 
         if (FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.senderId)){
             return  ITEM_SENT
@@ -73,5 +82,9 @@ if (viewType == 1){
         else{
             return ITEM_RECEIVE
         }
+    }
+    fun addMessage(message: Message) {
+        messageList.add(message)
+        notifyItemInserted(messageList.size - 1)
     }
 }
