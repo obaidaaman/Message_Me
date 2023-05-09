@@ -52,8 +52,8 @@ private var firebaseUser : FirebaseUser? = FirebaseAuth.getInstance().currentUse
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val name : TextView = itemView.findViewById(R.id.txtName)
-        val image :CircleImageView = itemView.findViewById(R.id.circleImageView)
+        val name : TextView = itemView.findViewById(R.id.userName)
+      //  val image :CircleImageView = itemView.findViewById(R.id.circleImageView)
         val layoutUser : LinearLayout = itemView.findViewById(R.id.layoutUser)
 //        init {
 //            itemView.setOnClickListener{

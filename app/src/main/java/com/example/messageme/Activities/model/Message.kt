@@ -3,6 +3,7 @@ package com.example.messageme.Activities.model
 class Message {
      var message : String? = null
     var senderId : String? = null
+    var receiverId: String? = null
 
     constructor(){}
 

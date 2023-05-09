@@ -19,9 +19,9 @@ class ChatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChatBinding
 
-    private lateinit var messageAdapter: Adapter
+    private lateinit var messageAdapter: MessageAdapter
 
-    private lateinit var messageList: ArrayList<UserDetails>
+    private lateinit var messageList: ArrayList<Message>
 
     private lateinit var mdbRef: DatabaseReference
 
@@ -55,7 +55,7 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar?.title = name.toString()
 
         messageList = ArrayList()
-        messageAdapter = Adapter(this, messageList)
+        messageAdapter = MessageAdapter(this, messageList)
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.chatRecyclerView.adapter = messageAdapter
 
